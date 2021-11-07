@@ -1,0 +1,14 @@
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using DataServer.Models;
+
+namespace DataServer.DataAccess
+{
+    public interface IOrdersDao
+    {
+        Task CreateOrderAsync(Order order);
+        Task<IList<Order>> ReadOrdersAsync();
+        Task UpdateOrderAsync(Order order);
+        Task DeleteOrderAsync(Order order);
+    }
+}
