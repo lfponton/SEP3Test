@@ -1,0 +1,16 @@
+C:\Users\lfpon\RiderProjects\RestaurantApp\DataServer\bin\Debug\net5.0\DataServer.exe
+C:\Users\lfpon\RiderProjects\RestaurantApp\DataServer\bin\Debug\net5.0\DataServer.deps.json
+C:\Users\lfpon\RiderProjects\RestaurantApp\DataServer\bin\Debug\net5.0\DataServer.runtimeconfig.json
+C:\Users\lfpon\RiderProjects\RestaurantApp\DataServer\bin\Debug\net5.0\DataServer.runtimeconfig.dev.json
+C:\Users\lfpon\RiderProjects\RestaurantApp\DataServer\bin\Debug\net5.0\DataServer.dll
+C:\Users\lfpon\RiderProjects\RestaurantApp\DataServer\bin\Debug\net5.0\ref\DataServer.dll
+C:\Users\lfpon\RiderProjects\RestaurantApp\DataServer\bin\Debug\net5.0\DataServer.pdb
+C:\Users\lfpon\RiderProjects\RestaurantApp\DataServer\obj\Debug\net5.0\DataServer.csproj.AssemblyReference.cache
+C:\Users\lfpon\RiderProjects\RestaurantApp\DataServer\obj\Debug\net5.0\DataServer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lfpon\RiderProjects\RestaurantApp\DataServer\obj\Debug\net5.0\DataServer.AssemblyInfoInputs.cache
+C:\Users\lfpon\RiderProjects\RestaurantApp\DataServer\obj\Debug\net5.0\DataServer.AssemblyInfo.cs
+C:\Users\lfpon\RiderProjects\RestaurantApp\DataServer\obj\Debug\net5.0\DataServer.csproj.CoreCompileInputs.cache
+C:\Users\lfpon\RiderProjects\RestaurantApp\DataServer\obj\Debug\net5.0\DataServer.dll
+C:\Users\lfpon\RiderProjects\RestaurantApp\DataServer\obj\Debug\net5.0\ref\DataServer.dll
+C:\Users\lfpon\RiderProjects\RestaurantApp\DataServer\obj\Debug\net5.0\DataServer.pdb
+C:\Users\lfpon\RiderProjects\RestaurantApp\DataServer\obj\Debug\net5.0\DataServer.genruntimeconfig.cache
