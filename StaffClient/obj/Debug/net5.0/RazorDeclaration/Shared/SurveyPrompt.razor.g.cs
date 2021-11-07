@@ -11,7 +11,6 @@ namespace StaffClient.Shared
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Components;
 #nullable restore
 #line 1 "C:\Users\lfpon\RiderProjects\RestaurantApp\StaffClient\_Imports.razor"
 using System.Net.Http;
@@ -82,6 +81,13 @@ using StaffClient.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 1 "C:\Users\lfpon\RiderProjects\RestaurantApp\StaffClient\Shared\SurveyPrompt.razor"
+using Microsoft.AspNetCore.Components;
+
+#line default
+#line hidden
+#nullable disable
     public partial class SurveyPrompt : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -90,7 +96,7 @@ using StaffClient.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 12 "C:\Users\lfpon\RiderProjects\RestaurantApp\StaffClient\Shared\SurveyPrompt.razor"
+#line 13 "C:\Users\lfpon\RiderProjects\RestaurantApp\StaffClient\Shared\SurveyPrompt.razor"
        
     // Demonstrates how a parent component can supply parameters
     [Parameter]
