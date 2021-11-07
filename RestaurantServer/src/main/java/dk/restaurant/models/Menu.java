@@ -1,22 +1,26 @@
 package dk.restaurant.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Menu implements Serializable
 {
-  private long menuId;
-  //List<MenuItem> menuItems;
-  private int price;
+  private int menuId;
+  List<MenuItem> menuItems;
+  private double price;
+  private String name;
+  private String type;
 
   Menu() {}
 
-  public Menu(long menuId, int price)
+  public Menu(int menuId, int price)
   {
     this.menuId = menuId;
-    //this.menuItems = new ArrayList<>();
+    this.menuItems = new ArrayList<>();
     this.price = price;
   }
-/*
+
   public List<MenuItem> getMenuItems()
   {
     return menuItems;
@@ -27,24 +31,23 @@ public class Menu implements Serializable
     this.menuItems = menuItems;
   }
 
- */
 
-  public int getPrice()
+  public double getPrice()
   {
     return price;
   }
 
-  public void setPrice(int price)
+  public void setPrice(double price)
   {
     this.price = price;
   }
 
-  public Long getMenuId()
+  public int getMenuId()
   {
     return menuId;
   }
 
-  public void setMenuId(Long menuId)
+  public void setMenuId(int menuId)
   {
     this.menuId = menuId;
   }
