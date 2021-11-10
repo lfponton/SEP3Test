@@ -9,6 +9,6 @@ namespace DataServer.Models
         public string Name { get; set; }
         public string Type { get; set; }
         public decimal Price { get; set; }
-        public IList<MenuItemsSelection> MenuItemsSelections { get; set; }
+        public IList<MenuItemsSelection> MenuItemsSelections { get; set; } = new List<MenuItemsSelection>();
     }
 }

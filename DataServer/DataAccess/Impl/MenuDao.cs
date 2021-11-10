@@ -28,12 +28,7 @@ namespace DataServer.DataAccess.Impl
         public async Task<List<Menu>> GetMenusAsync()
         {
             Console.WriteLine("Here");
-            /*return await context.Menus.Include(m =>m.Name )
-                .Include(m =>m.Price )
-                .Include(m=>m.Type)
-                .Include(m=>m.MenuId )
-                .Include(m =>m.MenuItemsSelections )
-                .ToListAsync();*/
+          
             return await context.Menus.Include(menu => menu.MenuItemsSelections).ToListAsync();
         }
     }
