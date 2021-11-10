@@ -24,7 +24,7 @@ namespace DataServer.Persistence
             // Change this to the path in your system
             optionsBuilder
                 .UseNpgsql(
-                    "Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=1234;Pooling=false;Timeout=300;CommandTimeout=300;");
+                    "Host=abul.db.elephantsql.com;Port=5432;Database=pdkfscsn;Username=pdkfscsn;Password=xmosZfgxDtcqhD9YxxovvWuQ4DJTyKtH;Pooling=false;Timeout=300;CommandTimeout=300;");
         }
 
 
