@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using DatabaseServer.Models;
 
 namespace DataServer.Models
@@ -15,6 +16,16 @@ namespace DataServer.Models
         public Status Status { get; set; }
         
         public Address DeliveryAddress { get; set; }
+        
+        
+        // TESTING
+        public override string ToString()
+        {
+            return JsonSerializer.Serialize(this, new JsonSerializerOptions
+            {
+                WriteIndented = true
+            });
+        }
 
     }
 }

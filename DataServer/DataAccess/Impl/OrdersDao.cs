@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DataServer.Models;
 using DataServer.Persistence;
@@ -17,6 +18,8 @@ namespace DataServer.DataAccess.Impl
         {
             await context.AddAsync(order);
             await context.SaveChangesAsync();
+            // TESTING
+            Console.WriteLine(order.ToString());
             return order;
         }
 
