@@ -35,7 +35,7 @@ public class MenusClient {
         List<Menu> menus;
         out.println("getMenus");
         String response = in.readLine();
-        menus = gson.fromJson(response, new TypeToken<ArrayList<Order>>() {}.getType());
+        menus = gson.fromJson(response, new TypeToken<ArrayList<Menu>>() {}.getType());
         return menus;
     }
 

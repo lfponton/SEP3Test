@@ -28,9 +28,12 @@ else
                     <div class="col-md-6">
                         <b>@menu.Name</b>
                         <div style="margin-top:20px">Description:</div>
-                        @*<b>@menu.Description</b>
+                        <b>@foreach (var menuItem in menu.MenuItemsSelections)
+                           {
+                               @menuItem.MenuId;
+                           }</b>
                     <br/>
-                    <RadzenImage Path="@menu.Image" Style="width:100px;"/>*@
+                   @* <RadzenImage Path="@menu.Image" Style="width:100px;"/>*@
                     </div>
                     <div class="col-md-6">
                         <div>Type:</div>
@@ -58,6 +61,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         menus = await MenusPersistence.GetMenus();
+       
     }
 
     void OnSelectQuantity(dynamic value)
