@@ -14,5 +14,14 @@ namespace WebClient.Models
         public Status Status { get; set; }
         
         public Address DeliveryAddress { get; set; }
+
+        public void SetOrderPrice()
+        {
+            //TODO is it the right class for this method?
+            foreach (var orderItem in OrderItems)
+            {
+                
+            }
+        }
     }
 }

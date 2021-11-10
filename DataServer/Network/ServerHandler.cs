@@ -67,6 +67,9 @@ namespace DataServer.Network
                 case "createOrder":
                     await CreateOrder();
                     break;
+                case "getMenus":
+                    await GetMenus();
+                    break;
             }
         }
 
@@ -92,6 +95,20 @@ namespace DataServer.Network
             await daoFactory.OrdersDao.CreateOrderAsync(order);
             string orderJson = JsonSerializer.Serialize(order, options);
             writer.WriteLine(orderJson);
+        }
+
+        private async Task GetMenus()
+        {
+            string menusJson;
+            try
+            {
+                menusJson = JsonSerializer.Serialize(await daoFactory.MenuDao.GetMenusAsync(), options);
+                writer.WriteLine(menusJson);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+            }
         }
 
     }

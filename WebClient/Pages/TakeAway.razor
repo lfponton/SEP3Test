@@ -1,0 +1,75 @@
+﻿@page "/TakeAway"
+@using WebClient.Models
+@using WebClient.Data
+@inject IMenusPersistence MenusPersistence;
+
+<h3>TakeAway</h3>
+
+@if (menus == null)
+{
+    <p>
+        <em>Loading orders</em>
+    </p>
+}
+else if (!menus.Any())
+{
+    <p>
+        <em>No menus to show.</em>
+    </p>
+}
+else
+{
+
+    <div class="pre-scrollable">
+        @foreach (var menu in menus)
+        {
+            <RadzenCard Style="width:80%; margin-bottom: 2em; height:15%;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>@menu.Name</b>
+                        <div style="margin-top:20px">Description:</div>
+                        @*<b>@menu.Description</b>
+                    <br/>
+                    <RadzenImage Path="@menu.Image" Style="width:100px;"/>*@
+                    </div>
+                    <div class="col-md-6">
+                        <div>Type:</div>
+                        <b>@menu.Type</b>
+                        <div style="margin-top:20px">Price:</div>
+                        <b>@String.Format(new System.Globalization.CultureInfo("en-US"), "{0:C}", menu.Price)</b>
+                        <div style="margin-top:20px">Order: </div>
+                        <RadzenNumeric Style="width: 25%" TValue="int" Change=@(args => OnSelectQuantity(args))></RadzenNumeric>
+                        <br/>
+                        <RadzenButton Click=@(() => OnAddToOrder(@menu.MenuId)) Text="Add to Order" Style="margin-top: 2em; width: 40%"/>
+                    </div>
+                </div>
+            </RadzenCard>
+        }
+    </div>
+
+}
+
+
+@code {
+    private IList<Menu> menus = new List<Menu>();
+    int Quantity;
+    private Cart cart = new Cart();
+    
+    protected override async Task OnInitializedAsync()
+    {
+        menus = await MenusPersistence.GetMenus();
+    }
+
+    void OnSelectQuantity(dynamic value)
+    {
+        Quantity = value;
+    }
+
+    void OnAddToOrder(int menuId)
+    {
+        /*Menu menuToAdd = menus.First(m => m.MenuId == menuId);
+        cart.MenuSelection.Add(new ShoppingCartItem(Quantity,menuToAdd));
+        cart.SetOrderPrice(Quantity, menuToAdd);*/
+    }
+
+}

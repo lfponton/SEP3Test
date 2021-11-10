@@ -20,7 +20,9 @@
     <script src="_content/Radzen.Blazor/Radzen.Blazor.js"></script>
 </head>
 <body>
-<component type="typeof(App)" render-mode="ServerPrerendered"/>
+<app>
+<component type="typeof(App)" render-mode="Server"/>
+</app>
 
 <div id="blazor-error-ui">
     <environment include="Staging,Production">
