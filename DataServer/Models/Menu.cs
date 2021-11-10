@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DatabaseServer.Models;
 
 namespace DataServer.Models
 {
@@ -8,6 +9,6 @@ namespace DataServer.Models
         public string Name { get; set; }
         public string Type { get; set; }
         public decimal Price { get; set; }
-        public IList<MenuItem> MenuItems { get; set; }
+        public IList<MenuItemsSelection> MenuItemsSelections { get; set; }
     }
 }

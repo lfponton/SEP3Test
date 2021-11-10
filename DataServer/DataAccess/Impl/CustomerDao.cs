@@ -35,7 +35,6 @@ namespace DataServer.DataAccess.Impl
             toUpdate.FirstName = customer.FirstName;
             toUpdate.LastName = customer.LastName;
             toUpdate.Password = customer.Password;
-            toUpdate.CustomerAddress = customer.CustomerAddress;
             context.Update(toUpdate);
             await context.SaveChangesAsync();
         }

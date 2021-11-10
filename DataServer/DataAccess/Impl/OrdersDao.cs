@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DataServer.Models;
 using DataServer.Persistence;
@@ -13,28 +14,33 @@ namespace DataServer.DataAccess.Impl
         {
             this.context = context;
         }
-        public async Task CreateOrderAsync(Order order)
+        public async Task<Order> CreateOrderAsync(Order order)
         {
             await context.AddAsync(order);
             await context.SaveChangesAsync();
+            // TESTING
+            Console.WriteLine(order.ToString());
+            return order;
         }
 
         public async Task<IList<Order>> ReadOrdersAsync()
         {
             return await context.Orders
-                .Include(o => o.Menus)
-                .Include(o => o.Customer).ToListAsync();
+                .Include(o => o.OrderItems)
+                .Include(o => o.Customer)
+                .Include(o => o.DeliveryAddress).ToListAsync();
         }
 
         public async Task UpdateOrderAsync(Order order)
         {
             Order toUpdate = await context.Orders.FirstAsync(o => o.OrderId == order.OrderId);
             toUpdate.Customer = order.Customer;
-            toUpdate.Menus = order.Menus;
+            toUpdate.OrderItems = order.OrderItems;
             toUpdate.Price = order.Price;
             toUpdate.Status = order.Status;
             toUpdate.DeliveryTime = order.DeliveryTime;
             toUpdate.OrderDate = order.OrderDate;
+            toUpdate.DeliveryAddress = order.DeliveryAddress;
             context.Update(toUpdate);
             await context.SaveChangesAsync();
         }

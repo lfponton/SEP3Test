@@ -6,7 +6,7 @@ namespace DataServer.DataAccess
 {
     public interface IOrdersDao
     {
-        Task CreateOrderAsync(Order order);
+        Task<Order> CreateOrderAsync(Order order);
         Task<IList<Order>> ReadOrdersAsync();
         Task UpdateOrderAsync(Order order);
         Task DeleteOrderAsync(Order order);
