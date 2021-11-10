@@ -77,6 +77,20 @@ using WebClient;
 #nullable disable
 #nullable restore
 #line 10 "C:\Users\agosm\RiderProjects\SEP3c\WebClient\_Imports.razor"
+using Radzen;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 11 "C:\Users\agosm\RiderProjects\SEP3c\WebClient\_Imports.razor"
+using Radzen.Blazor;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 1 "C:\Users\agosm\RiderProjects\SEP3c\WebClient\App.razor"
 using WebClient.Shared;
 
 #line default
