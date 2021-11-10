@@ -1,4 +1,5 @@
-﻿using DatabaseServer.Models;
+﻿using System;
+using DatabaseServer.Models;
 using DataServer.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,12 +18,15 @@ namespace DataServer.Persistence
         public DbSet<StaffMember> StaffMembers { get; set; }
         public DbSet<Table> Tables { get; set; }
         public DbSet<TableBooking> TableBookings { get; set; }
-        
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite(@"Data Source = C:/Users/lfpon/RiderProjects/RestaurantApp/DataServer/RestaurantDB.db");
+            // Change this to the path in your system
+            optionsBuilder
+                .UseNpgsql(
+                    "Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=1234;Pooling=false;Timeout=300;CommandTimeout=300;");
         }
 
 
-    }
+}
 }
