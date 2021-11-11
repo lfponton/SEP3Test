@@ -7,17 +7,17 @@ import java.util.List;
 public class Menu implements Serializable
 {
   private int menuId;
-  List<MenuItem> menuItemsSelections;
+  List<MenuItem> menuItems;
   private double price;
   private String name;
   private String type;
 
   Menu() {}
 
-  public Menu(int menuId, int price, String name,String type)
+  public Menu(int menuId, int price, String name,String type, List<MenuItem> menuItems)
   {
     this.menuId = menuId;
-    this.menuItemsSelections = new ArrayList<>();
+    this.menuItems = menuItems;
     this.price = price;
     this.name = name;
     this.type = type;
@@ -25,12 +25,12 @@ public class Menu implements Serializable
 
   public List<MenuItem> getMenuItems()
   {
-    return menuItemsSelections;
+    return menuItems;
   }
 
   public void setMenuItems(List<MenuItem> menuItems)
   {
-    this.menuItemsSelections = menuItems;
+    this.menuItems = menuItems;
   }
 
 

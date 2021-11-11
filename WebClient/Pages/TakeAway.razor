@@ -2,6 +2,7 @@
 @using WebClient.Models
 @using WebClient.Data
 @inject IMenusPersistence MenusPersistence;
+@inject IMenuItemsService MenuItemsWebService;
 
 <h3>TakeAway</h3>
 
@@ -19,7 +20,6 @@ else if (!menus.Any())
 }
 else
 {
-
     <div class="pre-scrollable">
         @foreach (var menu in menus)
         {
@@ -28,12 +28,14 @@ else
                     <div class="col-md-6">
                         <b>@menu.Name</b>
                         <div style="margin-top:20px">Description:</div>
-                        <b>@foreach (var menuItem in menu.MenuItemsSelections)
-                           {
-                               @menuItem.MenuId;
-                           }</b>
-                    <br/>
-                   @* <RadzenImage Path="@menu.Image" Style="width:100px;"/>*@
+                        <b>
+                            @foreach (var menuItem in menu.MenuItems)
+                            {
+                                @menuItem.Name;
+                            }
+                        </b>
+                        <br/>
+                        @* <RadzenImage Path="@menu.Image" Style="width:100px;"/>*@
                     </div>
                     <div class="col-md-6">
                         <div>Type:</div>
@@ -49,19 +51,22 @@ else
             </RadzenCard>
         }
     </div>
-
 }
 
 
 @code {
     private IList<Menu> menus = new List<Menu>();
+    private IList<MenuItem> menuItems = new List<MenuItem>();
     int Quantity;
     private Cart cart = new Cart();
-    
+
     protected override async Task OnInitializedAsync()
     {
         menus = await MenusPersistence.GetMenus();
-       
+        foreach (var m in menus)
+        {
+            m.MenuItems = await MenuItemsWebService.GetMenuItems(m.MenuId);
+        }
     }
 
     void OnSelectQuantity(dynamic value)
@@ -71,9 +76,14 @@ else
 
     void OnAddToOrder(int menuId)
     {
-        /*Menu menuToAdd = menus.First(m => m.MenuId == menuId);
+    /*Menu menuToAdd = menus.First(m => m.MenuId == menuId);
         cart.MenuSelection.Add(new ShoppingCartItem(Quantity,menuToAdd));
         cart.SetOrderPrice(Quantity, menuToAdd);*/
+    }
+
+    private async Task<IList<MenuItem>> GetMenuItems(int menuId)
+    {
+        return await MenuItemsWebService.GetMenuItems(menuId);
     }
 
 }

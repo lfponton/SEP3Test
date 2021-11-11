@@ -20,6 +20,6 @@ public class MenuController {
     @GetMapping("/menus")
     public List<Menu> GetMenus() throws IOException
     {
-        return client.GetMenus();
+        return client.getMenus();
     }
 }

@@ -3,6 +3,7 @@ using System.IO;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using DataServer.DataAccess;
 using DataServer.Models;
@@ -28,7 +29,8 @@ namespace DataServer.Network
             
             options = new JsonSerializerOptions
             {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase, 
+               // ReferenceHandler = ReferenceHandler.Preserve
             };
 
             NetworkStream stream = client.GetStream();
@@ -70,7 +72,27 @@ namespace DataServer.Network
                 case "getMenus":
                     await GetMenus();
                     break;
+                case "getMenuItems":
+                    await GetMenuItems();
+                    break;
             }
+        }
+
+        private async Task GetMenuItems()
+        {
+            string receivedMenuId = await reader.ReadLineAsync();
+            int menuId = Int32.Parse(receivedMenuId);
+            string menuItemsJson;
+            try
+            {
+                menuItemsJson = JsonSerializer.Serialize(await daoFactory.MenuItemDao.ReadMenuItemsAsync(menuId), options);
+                writer.WriteLine(menuItemsJson);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+            }
+            
         }
 
         private async Task GetOrders()

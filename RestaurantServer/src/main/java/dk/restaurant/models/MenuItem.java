@@ -1,18 +1,23 @@
 package dk.restaurant.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MenuItem
 {
   private int menuItemId;
   private String name;
   private String description;
   private double price;
+  private List<Menu> menus;
 
-  public MenuItem(int menuItemId, String name, String description, double price)
+  public MenuItem(int menuItemId, String name, String description, double price, List<Menu> menus)
   {
     this.menuItemId = menuItemId;
     this.name = name;
     this.description = description;
     this.price = price;
+    this.menus = menus;
   }
 
   public MenuItem() {}
@@ -45,6 +50,16 @@ public class MenuItem
   public void setDescription(String description)
   {
     this.description = description;
+  }
+
+  public List<Menu> getMenus()
+  {
+    return menus;
+  }
+
+  public void setMenus(List<Menu> menus)
+  {
+    this.menus = menus;
   }
 
   public double getPrice()

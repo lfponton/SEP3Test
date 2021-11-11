@@ -112,16 +112,20 @@ using WebClient.Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 56 "C:\Users\lfpon\RiderProjects\SEP3\WebClient\Pages\TakeAway.razor"
+#line 57 "C:\Users\lfpon\RiderProjects\SEP3\WebClient\Pages\TakeAway.razor"
        
     private IList<Menu> menus = new List<Menu>();
+    private IList<MenuItem> menuItems = new List<MenuItem>();
     int Quantity;
     private Cart cart = new Cart();
-    
+
     protected override async Task OnInitializedAsync()
     {
         menus = await MenusPersistence.GetMenus();
-       
+        foreach (var m in menus)
+        {
+            m.MenuItems = await MenuItemsWebService.GetMenuItems(m.MenuId);
+        }
     }
 
     void OnSelectQuantity(dynamic value)
@@ -131,15 +135,21 @@ using WebClient.Data;
 
     void OnAddToOrder(int menuId)
     {
-        /*Menu menuToAdd = menus.First(m => m.MenuId == menuId);
+    /*Menu menuToAdd = menus.First(m => m.MenuId == menuId);
         cart.MenuSelection.Add(new ShoppingCartItem(Quantity,menuToAdd));
         cart.SetOrderPrice(Quantity, menuToAdd);*/
+    }
+
+    private async Task<IList<MenuItem>> GetMenuItems(int menuId)
+    {
+        return await MenuItemsWebService.GetMenuItems(menuId);
     }
 
 
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IMenuItemsService MenuItemsWebService { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IMenusPersistence MenusPersistence { get; set; }
     }
 }

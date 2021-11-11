@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using DatabaseServer.Models;
@@ -48,7 +49,13 @@ namespace DataServer
             var menu1 = restaurantDbContext.Menus.First(menu => menu.MenuId == 1);
             var menu2 = restaurantDbContext.Menus.First(menu => menu.MenuId == 2);
             await CreateOrder(daoFactory.OrdersDao, customer, menu1, menu2);
-*/          
+*/
+            int menuId = 1;
+            
+            string menusJson = JsonSerializer.Serialize(await restaurantDbContext.Menus.ToListAsync());
+            Console.WriteLine(menusJson);
+            
+            
         }
         
         
