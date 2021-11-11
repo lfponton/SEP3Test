@@ -27,6 +27,7 @@ namespace WebClient.Data
             if (!response.IsSuccessStatusCode)
                 throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
             string result = await response.Content.ReadAsStringAsync();
+            Console.WriteLine(result);
             List<Menu> menus = JsonSerializer.Deserialize<List<Menu>>(result, options);
             return menus;
         }

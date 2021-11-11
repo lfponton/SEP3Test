@@ -103,6 +103,7 @@ namespace DataServer.Network
             try
             {
                 menusJson = JsonSerializer.Serialize(await daoFactory.MenuDao.GetMenusAsync(), options);
+                Console.WriteLine(menusJson);
                 writer.WriteLine(menusJson);
             }
             catch (Exception e)

@@ -10,6 +10,7 @@ using DataServer.DataAccess.Impl;
 using DataServer.Models;
 using DataServer.Network;
 using DataServer.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataServer
 {
@@ -37,9 +38,19 @@ namespace DataServer
             5) Create another order for the same customer
             var customer = restaurantDbContext.Customers.First(c => c.CustomerId == 1);
             await CreateAnotherOrder(daoFactory.OrdersDao, customer);
-            */
             
+            await CreateCustomer(daoFactory.CustomerDao);
+            await CreateMenuItems(daoFactory.MenuItemDao);
+            var menuItem1 = restaurantDbContext.MenuItems.First(menuItem => menuItem.MenuItemId == 1);
+            var menuItem2 = restaurantDbContext.MenuItems.First(menuItem => menuItem.MenuItemId == 2);
+            await CreateMenus(daoFactory.MenuDao, menuItem1, menuItem2);
+            var customer = restaurantDbContext.Customers.First(c => c.CustomerId == 1);
+            var menu1 = restaurantDbContext.Menus.First(menu => menu.MenuId == 1);
+            var menu2 = restaurantDbContext.Menus.First(menu => menu.MenuId == 2);
+            await CreateOrder(daoFactory.OrdersDao, customer, menu1, menu2);
+*/          
         }
+        
         
         // ONLY FOR TESTING
         private static async Task CreateCustomer(ICustomerDao customerDao)
@@ -75,22 +86,16 @@ namespace DataServer
             await menuItemDao.CreateMenuItemAsync(menuItem2);
         }
         
-        private static async Task CreateMenus(IMenuDao menuDao)
+        private static async Task CreateMenus(IMenuDao menuDao, MenuItem menuItem1, MenuItem menuItem2)
         {
             var menu1 = new Menu
             {
                 Name = "Yummy Menu",
                 Type = "Regular",
-                MenuItemsSelections = new List<MenuItemsSelection>()
+                MenuItems = new List<MenuItem>()
                 {
-                    new MenuItemsSelection()
-                    {
-                        MenuItemId = 1
-                    },
-                    new MenuItemsSelection()
-                    {
-                        MenuItemId = 2
-                    }
+                    menuItem1,
+                    menuItem2
                 },
                 Price = 100
             };
@@ -99,24 +104,18 @@ namespace DataServer
             {
                 Name = "Healthy Menu",
                 Type = "Regular",
-                MenuItemsSelections = new List<MenuItemsSelection>()
+                MenuItems = new List<MenuItem>()
                 {
-                    new MenuItemsSelection()
-                    {
-                        MenuItemId = 2
+                    menuItem1,
+                    menuItem2,
                     },
-                    new MenuItemsSelection()
-                    {
-                        MenuItemId = 1
-                    }
-                },
                 Price = 200
             };
             await menuDao.CreateMenuAsync(menu1);
             await menuDao.CreateMenuAsync(menu2);
         }
         
-        private static async Task CreateOrder(IOrdersDao ordersDao, Customer customer)
+        private static async Task CreateOrder(IOrdersDao ordersDao, Customer customer, Menu menu1, Menu menu2)
         {
             var order = new Order
             {
@@ -127,12 +126,12 @@ namespace DataServer
                 {
                     new OrderItem
                     {
-                        MenuId = 1,
+                        Menu = menu1,
                         Quantity = 2
                     },
                     new OrderItem
                     {
-                        MenuId = 2,
+                        Menu = menu2,
                         Quantity = 2
                     }
                 },
@@ -143,7 +142,7 @@ namespace DataServer
             await ordersDao.CreateOrderAsync(order);
         }
 
-
+/*
         private static async Task CreateAnotherOrder(IOrdersDao ordersDao, Customer customer)
         {
             var order = new Order
@@ -165,5 +164,6 @@ namespace DataServer
 
             await ordersDao.CreateOrderAsync(order);
         }
+  */      
     }
 }

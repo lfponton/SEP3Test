@@ -11,7 +11,6 @@ namespace DataServer.Persistence
         public DbSet<Customer> Customers { get; set; }
         public DbSet<DeliveryDriver> DeliveryDrivers { get; set; }
         public DbSet<Menu> Menus { get; set; }
-        public DbSet<MenuItemsSelection> MenuItemsSelections { get; set; }
         public DbSet<MenuItem> MenuItems { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
@@ -24,7 +23,10 @@ namespace DataServer.Persistence
             // Change this to the path in your system
             optionsBuilder
                 .UseNpgsql(
-                    "Host=abul.db.elephantsql.com;Port=5432;Database=pdkfscsn;Username=pdkfscsn;Password=xmosZfgxDtcqhD9YxxovvWuQ4DJTyKtH;Pooling=false;Timeout=300;CommandTimeout=300;");
+                    "Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=1234;Pooling=false;Timeout=300;CommandTimeout=300;"
+                    );
+            
+            // ElephantSQL Connection String: "Host=abul.db.elephantsql.com;Port=5432;Database=pdkfscsn;Username=pdkfscsn;Password=xmosZfgxDtcqhD9YxxovvWuQ4DJTyKtH;Pooling=false;Timeout=300;CommandTimeout=300;"
         }
 
 

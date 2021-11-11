@@ -18,8 +18,6 @@ namespace DataServer.DataAccess.Impl
         {
             await context.AddAsync(order);
             await context.SaveChangesAsync();
-            // TESTING
-            Console.WriteLine(order.ToString());
             return order;
         }
 

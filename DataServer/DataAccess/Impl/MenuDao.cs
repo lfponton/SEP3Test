@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using DatabaseServer.Models;
 using DataServer.Models;
 using DataServer.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataServer.DataAccess.Impl
 {
-    
-    
-    public class MenuDao : IMenuDao 
+    public class MenuDao : IMenuDao
     {
-        
         private RestaurantDbContext context;
 
         public MenuDao(RestaurantDbContext context)
@@ -27,7 +26,7 @@ namespace DataServer.DataAccess.Impl
 
         public async Task<List<Menu>> GetMenusAsync()
         {
-           return await context.Menus.Include(menu => menu.MenuItemsSelections).ToListAsync();
+            return await context.Menus.ToListAsync();
         }
     }
 }
