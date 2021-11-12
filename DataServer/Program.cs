@@ -44,7 +44,6 @@ namespace DataServer
                 await CreateOrder(daoFactory.OrdersDao, customer, menu1, menu2);
             }
             
-            
         }
         
         
@@ -137,29 +136,19 @@ namespace DataServer
 
             await ordersDao.CreateOrderAsync(order);
         }
-
-/*
-        private static async Task CreateAnotherOrder(IOrdersDao ordersDao, Customer customer)
+        
+        private static async Task CreateOrderWithNoCustomer(IOrdersDao ordersDao)
         {
             var order = new Order
             {
                 OrderDate = DateTime.Now,
-                Customer = customer,
                 DeliveryTime = DateTime.Now,
-                OrderItems = new List<OrderItem>()
-                {
-                    new OrderItem
-                    {
-                        MenuId = 2,
-                        Quantity = 2
-                    }
-                },
+                OrderItems = new List<OrderItem>(),
                 Price = 100,
                 Status = Status.InProgress
             };
 
             await ordersDao.CreateOrderAsync(order);
         }
-  */      
     }
 }
