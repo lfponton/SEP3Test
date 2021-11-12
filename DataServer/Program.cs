@@ -26,34 +26,23 @@ namespace DataServer
             var serverThread = new Thread(server.Listen);
             serverThread.Start();
             Console.WriteLine($"Server started.");
-            /* ONLY FOR TESTING
-            1) Create a customer:
-            await CreateCustomer(daoFactory.CustomerDao);
-            2) Create MenuItems
-            await CreateMenuItems(daoFactory.MenuItemDao);
-            3) Create Menus
-            await CreateMenus(daoFactory.MenuDao);
-            4) Create Order
-            var customer = restaurantDbContext.Customers.First(c => c.CustomerId == 1);
-            await CreateOrder(daoFactory.OrdersDao, customer);
-            5) Create another order for the same customer
-            var customer = restaurantDbContext.Customers.First(c => c.CustomerId == 1);
-            await CreateAnotherOrder(daoFactory.OrdersDao, customer);
             
-            await CreateCustomer(daoFactory.CustomerDao);
-            await CreateMenuItems(daoFactory.MenuItemDao);
-            var menuItem1 = restaurantDbContext.MenuItems.First(menuItem => menuItem.MenuItemId == 1);
-            var menuItem2 = restaurantDbContext.MenuItems.First(menuItem => menuItem.MenuItemId == 2);
-            await CreateMenus(daoFactory.MenuDao, menuItem1, menuItem2);
-            var customer = restaurantDbContext.Customers.First(c => c.CustomerId == 1);
-            var menu1 = restaurantDbContext.Menus.First(menu => menu.MenuId == 1);
-            var menu2 = restaurantDbContext.Menus.First(menu => menu.MenuId == 2);
-            await CreateOrder(daoFactory.OrdersDao, customer, menu1, menu2);
-*/
-            int menuId = 1;
-            
-            string menusJson = JsonSerializer.Serialize(await restaurantDbContext.Menus.ToListAsync());
-            Console.WriteLine(menusJson);
+            // ONLY FOR TESTING
+            // Checks if there has been a customer added with the id = 1
+            var testCustomer = await restaurantDbContext.Customers.FirstOrDefaultAsync(c => c.CustomerId == 1);
+            // If it hasn't, then it will add the data to the database
+            if (testCustomer == null)
+            {
+                await CreateCustomer(daoFactory.CustomerDao);
+                await CreateMenuItems(daoFactory.MenuItemDao);
+                var menuItem1 = restaurantDbContext.MenuItems.First(menuItem => menuItem.MenuItemId == 1);
+                var menuItem2 = restaurantDbContext.MenuItems.First(menuItem => menuItem.MenuItemId == 2);
+                await CreateMenus(daoFactory.MenuDao, menuItem1, menuItem2);
+                var customer = restaurantDbContext.Customers.First(c => c.CustomerId == 1);
+                var menu1 = restaurantDbContext.Menus.First(menu => menu.MenuId == 1);
+                var menu2 = restaurantDbContext.Menus.First(menu => menu.MenuId == 2);
+                await CreateOrder(daoFactory.OrdersDao, customer, menu1, menu2);
+            }
             
             
         }
