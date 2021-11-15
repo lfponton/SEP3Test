@@ -3,6 +3,7 @@ package dk.restaurant.network;
 import dk.restaurant.models.Menu;
 import dk.restaurant.models.MenuItem;
 import dk.restaurant.models.Order;
+import dk.restaurant.models.OrderItem;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,6 +16,7 @@ public class Client
   private OrdersClient ordersClient;
   private MenusClient menusClient;
   private MenuItemsClient menuItemsClient;
+  private OrderItemsClient orderItemsClient;
   // Could include a cache
 
   private Client() throws IOException
@@ -22,6 +24,7 @@ public class Client
     ordersClient = new OrdersClient();
     menusClient = new MenusClient();
     menuItemsClient = new MenuItemsClient();
+    orderItemsClient = new OrderItemsClient();
   }
 
   public static Client getInstance()
@@ -70,5 +73,17 @@ public class Client
   public List<MenuItem> getMenusItems(int menuId) throws IOException
   {
     return menuItemsClient.getMenuItems(menuId);
+  }
+
+   public OrderItem createOrderItem(OrderItem orderItem) {
+    try {
+      System.out.println("Client");
+      orderItem = orderItemsClient.CreateOrderItem(orderItem);
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
+    }
+    return orderItem;
   }
 }

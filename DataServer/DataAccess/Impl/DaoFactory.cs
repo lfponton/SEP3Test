@@ -9,6 +9,7 @@ namespace DataServer.DataAccess.Impl
         public IAddressDao AddressDao { get; }
         public IMenuDao MenuDao { get; }
         public IMenuItemDao MenuItemDao { get; }
+        public IOrderItemDao OrderItemsDao { get; }
 
         public DaoFactory(RestaurantDbContext context)
         {
@@ -17,6 +18,7 @@ namespace DataServer.DataAccess.Impl
             AddressDao = new AddressDao(context);
             MenuDao = new MenuDao(context);
             MenuItemDao = new MenuItemDao(context);
+            OrderItemsDao = new OrderItemsDao(context);
 
         }
         

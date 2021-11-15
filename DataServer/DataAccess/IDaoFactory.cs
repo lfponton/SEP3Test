@@ -1,4 +1,6 @@
-﻿namespace DataServer.DataAccess
+﻿using DataServer.DataAccess.Impl;
+
+namespace DataServer.DataAccess
 {
     public interface IDaoFactory
     {
@@ -7,5 +9,6 @@
         IAddressDao AddressDao { get; }
         IMenuDao MenuDao { get; }
         IMenuItemDao MenuItemDao { get; }
-}
+        public IOrderItemDao OrderItemsDao { get; }
+    }
 }

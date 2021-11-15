@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using DatabaseServer.Models;
 using DataServer.DataAccess;
 using DataServer.Models;
 
@@ -75,6 +76,9 @@ namespace DataServer.Network
                 case "getMenuItems":
                     await GetMenuItems();
                     break;
+                case "createOrderItem":
+                    await CreateOrderItem();
+                    break;
             }
         }
 
@@ -132,6 +136,18 @@ namespace DataServer.Network
             {
                 Console.WriteLine(e.StackTrace);
             }
+        }
+        
+        private async Task CreateOrderItem()
+        {
+
+            string requestBody;
+            requestBody = reader.ReadLine();
+            OrderItem orderItem = JsonSerializer.Deserialize<OrderItem>(requestBody, options);
+            await daoFactory.OrderItemsDao.CreateOrderItemAsync(orderItem);
+            string orderItemJson = JsonSerializer.Serialize(orderItem, options);
+
+            writer.WriteLine(orderItemJson);
         }
 
     }

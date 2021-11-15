@@ -35,6 +35,7 @@ namespace WebClient
             services.AddScoped<ContextMenuService>();
             services.AddSingleton<IMenusPersistence, MenusPersistence>();
             services.AddSingleton<IMenuItemsService, MenuItemsWebService>();
+            services.AddScoped<IOrderItemsService, OrderItemsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

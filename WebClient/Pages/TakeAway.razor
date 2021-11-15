@@ -3,13 +3,14 @@
 @using WebClient.Data
 @inject IMenusPersistence MenusPersistence;
 @inject IMenuItemsService MenuItemsWebService;
+@inject IOrderItemsService OrderItemsService;
 
 <h3>TakeAway</h3>
 
 @if (menus == null)
 {
     <p>
-        <em>Loading orders</em>
+        <em>Loading orders - something went worng</em>
     </p>
 }
 else if (!menus.Any())
@@ -35,7 +36,6 @@ else
                             }
                         </b>
                         <br/>
-                        @* <RadzenImage Path="@menu.Image" Style="width:100px;"/>*@
                     </div>
                     <div class="col-md-6">
                         <div>Type:</div>
@@ -45,20 +45,51 @@ else
                         <div style="margin-top:20px">Order: </div>
                         <RadzenNumeric Style="width: 25%" TValue="int" Change=@(args => OnSelectQuantity(args))></RadzenNumeric>
                         <br/>
-                        <RadzenButton Click=@(() => OnAddToOrder(@menu.MenuId)) Text="Add to Order" Style="margin-top: 2em; width: 40%"/>
+                        <RadzenButton Click=@(() => OnAddOrderItem(@menu.MenuId)) Text="Add to Order" Style="margin-top: 2em; width: 40%"/>
                     </div>
                 </div>
             </RadzenCard>
         }
     </div>
+    
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Number Of items</th>
+            <th>Menu</th>
+            <th>Price</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in orderItems)
+        {
+            <tr>
+                <td>@item.Quantity</td>
+                <td>
+                  //  @{GetMenuById(@item.MenuId);}
+                </td>
+                <td>@item.Price</td>
+               <td>
+                    <button @onclick="@(() => RemoveOrderItem(@item.OrderItemId))">
+                        <i class="oi oi-trash" style="color:red"/>
+                    </button>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
 }
+
+
 
 
 @code {
     private IList<Menu> menus = new List<Menu>();
     private IList<MenuItem> menuItems = new List<MenuItem>();
+    private IList<OrderItem> orderItems = new List<OrderItem>();
+    private Menu menuById = new Menu();
     int Quantity;
-    private Cart cart = new Cart();
 
     protected override async Task OnInitializedAsync()
     {
@@ -69,18 +100,31 @@ else
         }
     }
 
+    void GetMenuById(int menuId)
+    {
+        menuById = menus.FirstOrDefault(m => m.MenuId.Equals(menuId));
+    }
+
     void OnSelectQuantity(dynamic value)
     {
         Quantity = value;
     }
 
-    void OnAddToOrder(int menuId)
+    private async Task OnAddOrderItem(int menuId)
     {
-    /*Menu menuToAdd = menus.First(m => m.MenuId == menuId);
-        cart.MenuSelection.Add(new ShoppingCartItem(Quantity,menuToAdd));
-        cart.SetOrderPrice(Quantity, menuToAdd);*/
+        Console.WriteLine($"MenuId selected{menuId}");
+
+        await OrderItemsService.CreateOrderItem(Quantity, menuId);
+        // should we clear the quantity here?
     }
 
+    private async Task RemoveOrderItem(long orderItem)
+    {
+        
+    }
+
+    
+//TODO function
     private async Task<IList<MenuItem>> GetMenuItems(int menuId)
     {
         return await MenuItemsWebService.GetMenuItems(menuId);

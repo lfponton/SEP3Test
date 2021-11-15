@@ -31,5 +31,6 @@ namespace WebClient.Data
             List<MenuItem> menus = JsonSerializer.Deserialize<List<MenuItem>>(result, options);
             return menus;
         }
+        
     }
 }

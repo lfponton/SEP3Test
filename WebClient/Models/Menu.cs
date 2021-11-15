@@ -9,6 +9,8 @@ namespace WebClient.Models
         public string Type { get; set; }
         public decimal Price { get; set; }
         public IList<MenuItem> MenuItems { get; set; }
+        
+        //For Testing
         public override string ToString()
         {
             return $"{MenuId},{Name},{Type},{Price}";
