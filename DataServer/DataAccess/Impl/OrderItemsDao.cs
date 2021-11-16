@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DataServer.Models;
 using DataServer.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataServer.DataAccess.Impl
 {
@@ -16,17 +18,16 @@ namespace DataServer.DataAccess.Impl
         
         
         public async Task<OrderItem>CreateOrderItemAsync(OrderItem orderItem)
-        { 
-            Console.WriteLine($"Before saving in dao{orderItem.Quantity}{orderItem.MenuId}{orderItem.OrderId}");
-
+        {
             await context.OrderItems.AddAsync(orderItem);
             await context.SaveChangesAsync();
             return orderItem;
         }
 
-        public Task<List<OrderItem>> GetOrderItemsAsync(int orderId)
+        public async Task<List<OrderItem>> GetOrderItemsAsync(int orderId)
         {
-            throw new System.NotImplementedException();
+            return await context.OrderItems.Where(o => o.OrderId == orderId).ToListAsync();
+
         }
     }
 }

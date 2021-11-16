@@ -6,6 +6,7 @@ import dk.restaurant.models.Order;
 import dk.restaurant.models.OrderItem;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Client
@@ -77,13 +78,16 @@ public class Client
 
    public OrderItem createOrderItem(OrderItem orderItem) {
     try {
-      System.out.println("Client->>> "+"OrderId: "+ orderItem.getOrderId() +"MEnuId"+ orderItem.getMenuId() +"Quantity"+ orderItem.getQuantity());
-      orderItem = orderItemsClient.CreateOrderItem(orderItem);
+      orderItem = orderItemsClient.createOrderItem(orderItem);
     }
     catch (IOException e)
     {
       e.printStackTrace();
     }
     return orderItem;
+  }
+  public List<OrderItem> getOrderItems(long orderId) throws IOException {
+    List<OrderItem> orderItems = new ArrayList<>();
+    return orderItemsClient.getOrderItems(orderId);
   }
 }

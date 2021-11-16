@@ -85,6 +85,9 @@ namespace DataServer.Network
                 case "createOrderItem":
                     await CreateOrderItem();
                     break;
+                case "getOrderItems":
+                    await GetOrderItems();
+                    break;
             }
         }
 
@@ -125,7 +128,7 @@ namespace DataServer.Network
             requestBody = reader.ReadLine();
             Order order = JsonSerializer.Deserialize<Order>(requestBody, options);
                 await daoFactory.OrdersDao.CreateOrderAsync(order);
-                string orderJson = JsonSerializer.Serialize(order,optionsWithoutConverter);
+                string orderJson = JsonSerializer.Serialize(order, optionsWithoutConverter);
                 writer.WriteLine(orderJson);
         }
 
@@ -154,6 +157,23 @@ namespace DataServer.Network
             string orderItemJson = JsonSerializer.Serialize(orderItem, options);
 
             writer.WriteLine(orderItemJson);
+        }
+
+        private async Task GetOrderItems()
+        {
+            string receivedOrderId = await reader.ReadLineAsync();
+            int orderId = Int32.Parse(receivedOrderId);
+            string orderItemsJson;
+            try
+            {
+                orderItemsJson = JsonSerializer.Serialize(await daoFactory.OrderItemsDao.GetOrderItemsAsync(orderId), options);
+                Console.WriteLine(orderItemsJson);
+                writer.WriteLine(orderItemsJson);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+            }
         }
 
     }

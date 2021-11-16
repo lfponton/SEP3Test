@@ -4,6 +4,7 @@ import dk.restaurant.models.Order;
 import dk.restaurant.models.OrderItem;
 import dk.restaurant.network.Client;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Console;
@@ -20,10 +21,11 @@ public class OrderItemController
         client = Client.getInstance();
     }
 
-    @GetMapping("/orderItems")
-    public List<Order> getOrdersItems() throws IOException
+    @GetMapping("/orderItems/{id}")
+    @ResponseBody
+    public List<OrderItem> getOrdersItems(@PathVariable("id") long orderId) throws IOException
     {
-        return client.getOrders();
+        return client.getOrderItems(orderId);
     }
 
     @PostMapping("/orderItems")

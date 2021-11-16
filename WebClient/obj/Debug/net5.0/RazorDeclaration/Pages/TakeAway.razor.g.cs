@@ -121,6 +121,7 @@ using WebClient.Data;
 
     protected override async Task OnInitializedAsync()
     {
+        cacheOrder = await OrderService.CreateOrder();
         menus = await MenusPersistence.GetMenus();
         foreach (var m in menus)
         {
@@ -130,15 +131,13 @@ using WebClient.Data;
     
     private async Task OnSelectQuantity(dynamic value)
     {
-        Console.WriteLine($"here--------------------->orderId{cacheOrder.OrderId}");
         quantity = value;
     }
 
     private async Task OnAddOrderItem(int menuId)
     {  
-         cacheOrder = await OrderService.CreateOrder();
-         Console.WriteLine($"cacheorderId----------->{cacheOrder.OrderId}");
-      //  await OrderItemsService.CreateOrderItem(quantity, menuId, cacheOrder.OrderId);
+         await OrderItemsService.CreateOrderItem(quantity, menuId, cacheOrder.OrderId);
+         orderItems = await OrderItemsService.GetOrderItems(cacheOrder.OrderId);
     }
 
     private async Task RemoveOrderItem(long orderItem)
@@ -146,7 +145,10 @@ using WebClient.Data;
         
     }
 
-    
+    private Menu GetMenuById(int menuId)
+    {
+        return menus.FirstOrDefault(m => m.MenuId == menuId);
+    }
 //TODO function
     private async Task<IList<MenuItem>> GetMenuItems(int menuId)
     {

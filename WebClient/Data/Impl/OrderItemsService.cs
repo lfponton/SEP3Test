@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -40,5 +41,15 @@ namespace WebClient.Data.Impl
                 throw new Exception($"Error,{response.StatusCode},{response.ReasonPhrase}");
             }
         }
+
+        public async Task<List<OrderItem>> GetOrderItems(long orderId)
+        {
+            HttpResponseMessage response = await client.GetAsync($"{uri}/orderItems/{orderId}");
+            if (!response.IsSuccessStatusCode)
+                throw new Exception($"Error: {response.StatusCode}, {response.ReasonPhrase}");
+            string result = await response.Content.ReadAsStringAsync();
+            Console.WriteLine(result);
+            List<OrderItem> orderItems = JsonSerializer.Deserialize<List<OrderItem>>(result, options);
+            return orderItems;        }
     }
 }
