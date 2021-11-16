@@ -158,8 +158,8 @@ namespace DataServer.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
+                    b.Property<string>("Status")
+                        .HasColumnType("text");
 
                     b.HasKey("OrderId");
 
@@ -168,6 +168,29 @@ namespace DataServer.Migrations
                     b.HasIndex("DeliveryAddressAddressId");
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("DataServer.Models.OrderItem", b =>
+                {
+                    b.Property<long>("OrderItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("MenuId")
+                        .HasColumnType("integer");
+
+                    b.Property<long>("OrderId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.HasKey("OrderItemId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("DataServer.Models.StaffMember", b =>
@@ -240,31 +263,6 @@ namespace DataServer.Migrations
                     b.ToTable("TableBookings");
                 });
 
-            modelBuilder.Entity("DatabaseServer.Models.OrderItem", b =>
-                {
-                    b.Property<long>("OrderItemId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int?>("MenuId")
-                        .HasColumnType("integer");
-
-                    b.Property<long>("OrderId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.HasKey("OrderItemId");
-
-                    b.HasIndex("MenuId");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("OrderItems");
-                });
-
             modelBuilder.Entity("MenuMenuItem", b =>
                 {
                     b.Property<int>("MenuItemsMenuItemId")
@@ -295,6 +293,15 @@ namespace DataServer.Migrations
                     b.Navigation("DeliveryAddress");
                 });
 
+            modelBuilder.Entity("DataServer.Models.OrderItem", b =>
+                {
+                    b.HasOne("DataServer.Models.Order", null)
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("DataServer.Models.TableBooking", b =>
                 {
                     b.HasOne("DataServer.Models.Customer", "Customer")
@@ -308,21 +315,6 @@ namespace DataServer.Migrations
                     b.Navigation("Customer");
 
                     b.Navigation("Table");
-                });
-
-            modelBuilder.Entity("DatabaseServer.Models.OrderItem", b =>
-                {
-                    b.HasOne("DataServer.Models.Menu", "Menu")
-                        .WithMany()
-                        .HasForeignKey("MenuId");
-
-                    b.HasOne("DataServer.Models.Order", null)
-                        .WithMany("OrderItems")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Menu");
                 });
 
             modelBuilder.Entity("MenuMenuItem", b =>

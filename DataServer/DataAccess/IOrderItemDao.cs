@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DatabaseServer.Models;
+using DataServer.Models;
 using DataServer.Models;
 
 namespace DataServer.DataAccess

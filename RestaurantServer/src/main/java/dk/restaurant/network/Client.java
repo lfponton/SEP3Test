@@ -77,7 +77,7 @@ public class Client
 
    public OrderItem createOrderItem(OrderItem orderItem) {
     try {
-      System.out.println("Client");
+      System.out.println("Client->>> "+"OrderId: "+ orderItem.getOrderId() +"MEnuId"+ orderItem.getMenuId() +"Quantity"+ orderItem.getQuantity());
       orderItem = orderItemsClient.CreateOrderItem(orderItem);
     }
     catch (IOException e)

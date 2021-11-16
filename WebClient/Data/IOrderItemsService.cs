@@ -5,7 +5,7 @@ namespace WebClient.Data
 {
     public interface IOrderItemsService
     {
-        Task CreateOrderItem(int quantity, int menuId);
+        Task CreateOrderItem(int quantity, int menuId, long orderId);
 
     }
 }

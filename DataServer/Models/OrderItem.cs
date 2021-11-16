@@ -1,12 +1,12 @@
 ﻿using DataServer.Models;
 
-namespace DatabaseServer.Models
+namespace DataServer.Models
 {
     public class OrderItem
     {
         public long OrderItemId { get; set; }
         public long OrderId { get; set; }
-        public Menu Menu { get; set; }
+        public int MenuId { get; set; }
         public int Quantity { get; set; }
     }
 }

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.Json;
-using DatabaseServer.Models;
+using System.Text.Json.Serialization;
+using DataServer.Models;
 
 namespace DataServer.Models
 {
@@ -13,7 +14,7 @@ namespace DataServer.Models
         public decimal Price { get; set; }
         public IList<OrderItem> OrderItems { get; set; }
         public Customer Customer { get; set; }
-        public Status Status { get; set; }
+        public string Status { get; set; }
         
         public Address DeliveryAddress { get; set; }
         

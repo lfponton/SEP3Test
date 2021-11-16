@@ -5,9 +5,9 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using DatabaseServer.Models;
-using DataServer.DataAccess;
 using DataServer.Models;
+using DataServer.DataAccess;
+using DataServer.Network;
 
 namespace DataServer.Network
 {
@@ -22,7 +22,7 @@ namespace DataServer.Network
         private bool clientConnected;
 
         private JsonSerializerOptions options;
-
+        private JsonSerializerOptions optionsWithoutConverter;
         public ServerHandler(TcpClient client, IDaoFactory daoFactory)
         {
             this.client = client;
@@ -30,10 +30,17 @@ namespace DataServer.Network
             
             options = new JsonSerializerOptions
             {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase, 
-               // ReferenceHandler = ReferenceHandler.Preserve
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                
+                // ReferenceHandler = ReferenceHandler.Preserve
             };
+            options.Converters.Add(new DateTimeConverter());
 
+            optionsWithoutConverter = new JsonSerializerOptions()
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            };
+            
             NetworkStream stream = client.GetStream();
             writer = new StreamWriter(stream, Encoding.ASCII) {AutoFlush = true};
             reader = new StreamReader(stream, Encoding.ASCII);
@@ -43,7 +50,6 @@ namespace DataServer.Network
         public async Task Start()
         {
             clientConnected = true;
-
             do
             {
                 try
@@ -118,9 +124,9 @@ namespace DataServer.Network
             string requestBody;
             requestBody = reader.ReadLine();
             Order order = JsonSerializer.Deserialize<Order>(requestBody, options);
-            await daoFactory.OrdersDao.CreateOrderAsync(order);
-            string orderJson = JsonSerializer.Serialize(order, options);
-            writer.WriteLine(orderJson);
+                await daoFactory.OrdersDao.CreateOrderAsync(order);
+                string orderJson = JsonSerializer.Serialize(order,optionsWithoutConverter);
+                writer.WriteLine(orderJson);
         }
 
         private async Task GetMenus()

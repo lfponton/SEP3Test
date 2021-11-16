@@ -112,13 +112,12 @@ using WebClient.Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 87 "C:\Users\agosm\RiderProjects\SEP3c\WebClient\Pages\TakeAway.razor"
+#line 88 "C:\Users\agosm\RiderProjects\SEP3c\WebClient\Pages\TakeAway.razor"
        
     private IList<Menu> menus = new List<Menu>();
-    private IList<MenuItem> menuItems = new List<MenuItem>();
     private IList<OrderItem> orderItems = new List<OrderItem>();
-    private Menu menuById = new Menu();
-    int Quantity;
+    private Order cacheOrder = new Order();
+    private int quantity;
 
     protected override async Task OnInitializedAsync()
     {
@@ -128,23 +127,18 @@ using WebClient.Data;
             m.MenuItems = await MenuItemsWebService.GetMenuItems(m.MenuId);
         }
     }
-
-    void GetMenuById(int menuId)
+    
+    private async Task OnSelectQuantity(dynamic value)
     {
-        menuById = menus.FirstOrDefault(m => m.MenuId.Equals(menuId));
-    }
-
-    void OnSelectQuantity(dynamic value)
-    {
-        Quantity = value;
+        Console.WriteLine($"here--------------------->orderId{cacheOrder.OrderId}");
+        quantity = value;
     }
 
     private async Task OnAddOrderItem(int menuId)
-    {
-        Console.WriteLine($"MenuId selected{menuId}");
-
-        await OrderItemsService.CreateOrderItem(Quantity, menuId);
-        // should we clear the quantity here?
+    {  
+         cacheOrder = await OrderService.CreateOrder();
+         Console.WriteLine($"cacheorderId----------->{cacheOrder.OrderId}");
+      //  await OrderItemsService.CreateOrderItem(quantity, menuId, cacheOrder.OrderId);
     }
 
     private async Task RemoveOrderItem(long orderItem)
@@ -163,6 +157,7 @@ using WebClient.Data;
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IOrderService OrderService { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IOrderItemsService OrderItemsService { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IMenuItemsService MenuItemsWebService { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IMenusPersistence MenusPersistence { get; set; }

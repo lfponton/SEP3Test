@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DatabaseServer.Models;
+using DataServer.Models;
 using DataServer.Persistence;
 
 namespace DataServer.DataAccess.Impl
@@ -17,7 +17,9 @@ namespace DataServer.DataAccess.Impl
         
         public async Task<OrderItem>CreateOrderItemAsync(OrderItem orderItem)
         { 
-            await context.OrderItems.AddAsync(orderItem); 
+            Console.WriteLine($"Before saving in dao{orderItem.Quantity}{orderItem.MenuId}{orderItem.OrderId}");
+
+            await context.OrderItems.AddAsync(orderItem);
             await context.SaveChangesAsync();
             return orderItem;
         }

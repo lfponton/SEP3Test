@@ -16,24 +16,27 @@ namespace DataServer.DataAccess.Impl
         }
         public async Task<Order> CreateOrderAsync(Order order)
         {
-            await context.AddAsync(order);
+           Console.WriteLine($"DAO-------------->{order.DeliveryTime}");
+            await context.Orders.AddAsync(order);
             await context.SaveChangesAsync();
             return order;
         }
 
         public async Task<IList<Order>> ReadOrdersAsync()
         {
-            return await context.Orders
-                .Include(o => o.OrderItems)
-                .Include(o => o.Customer)
-                .Include(o => o.DeliveryAddress).ToListAsync();
+            // return await context.Orders
+            //     .Include(o => o.OrderItems)
+            //     .Include(o => o.Customer)
+            //     .Include(o => o.DeliveryAddress).ToListAsync();
+            return await context.Orders.ToListAsync();
+
         }
 
         public async Task UpdateOrderAsync(Order order)
         {
             Order toUpdate = await context.Orders.FirstAsync(o => o.OrderId == order.OrderId);
             toUpdate.Customer = order.Customer;
-            toUpdate.OrderItems = order.OrderItems;
+          //  toUpdate.OrderItems = order.OrderItems;
             toUpdate.Price = order.Price;
             toUpdate.Status = order.Status;
             toUpdate.DeliveryTime = order.DeliveryTime;

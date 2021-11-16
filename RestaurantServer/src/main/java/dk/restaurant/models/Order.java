@@ -1,23 +1,25 @@
 package dk.restaurant.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.*;
 
 public class Order implements Serializable
 {
   private long orderId;
-  private String status; // Not sure how to make the enums work with JSON and SQL
-  private Customer customer;
-  private List<Menu> menus;
   private Date orderDate;
   private Date deliveryTime;
-  private double price;
+  private BigDecimal price;
+  private Customer customer;
+  private String status; // Not sure how to make the enums work with JSON and SQL
+  private List<OrderItem> orderItems;
+  private Address deliveryAddress;
 
-  Order() {}
 
-  public Order(long orderId, String status, Customer customer, List<Menu> menus,
+
+
+
+ /* public Order(long orderId, String status, Customer customer, List<Menu> menus,
       double price, Date orderDate, Date deliveryTime)
   {
     this.orderId = orderId;
@@ -27,7 +29,7 @@ public class Order implements Serializable
     this.customer = customer;
     this.menus = new ArrayList<Menu>();
     this.price = price;
-  }
+  }*/
 
   public long getOrderId()
   {
@@ -39,12 +41,12 @@ public class Order implements Serializable
     this.orderId = orderId;
   }
 
-  public double getPrice()
+  public BigDecimal getPrice()
   {
     return price;
   }
 
-  public void setPrice(double price)
+  public void setPrice(BigDecimal price)
   {
     this.price = price;
   }
@@ -56,13 +58,13 @@ public class Order implements Serializable
 
   public void setCustomer(Customer customer)
   {
-    this.customer = customer;
+    this.customer= customer;
   }
 
-  public List<Menu> getMenus()
+ /* public List<OrderItem> getMenus()
   {
-    return menus;
-  }
+    return orderItems;
+  }*/
 
   public Date getOrderDate()
   {
@@ -84,10 +86,10 @@ public class Order implements Serializable
     this.deliveryTime = deliveryTime;
   }
 
-  public void setMenus(List<Menu> menus)
+ /* public void setMenus(List<OrderItem> orderItems)
   {
-    this.menus = menus;
-  }
+    this.orderItems = orderItems;
+  }*/
 
   public String getStatus() {
     return this.status;
@@ -98,9 +100,18 @@ public class Order implements Serializable
     this.status = status;
   }
 
+
+  public Address getDeliveryAddress() {
+    return deliveryAddress;
+  }
+
+  public void setDeliveryAddress(Address deliveryAddress) {
+    this.deliveryAddress = deliveryAddress;
+  }
+
   @Override public String toString()
   {
     return "Order{" + "order_id=" + orderId +
-        ", status=" + status + ", customer=" + customer.getCustomerId() + ", price=" + price + '}';
+        ", status=" + status + ", customer=" + ", price=" + price + '}';
   }
 }

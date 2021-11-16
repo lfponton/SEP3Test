@@ -5,7 +5,7 @@ using System.Net;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using DatabaseServer.Models;
+using DataServer.Models;
 using DataServer.DataAccess;
 using DataServer.DataAccess.Impl;
 using DataServer.Models;
@@ -115,23 +115,23 @@ namespace DataServer
             var order = new Order
             {
                 OrderDate = DateTime.Now,
-                Customer = customer,
+               // CustomerId = customer.CustomerId,
                 DeliveryTime = DateTime.Now,
-                OrderItems = new List<OrderItem>()
+              /*  OrderItems = new List<OrderItem>()
                 {
                     new OrderItem
                     {
-                        Menu = menu1,
+                        MenuId = menu1.MenuId,
                         Quantity = 2
                     },
                     new OrderItem
                     {
-                        Menu = menu2,
+                        MenuId = menu2.MenuId,
                         Quantity = 2
                     }
-                },
+                },*/
                 Price = 300,
-                Status = Status.InProgress
+               // Status = Status.InProgress
             };
 
             await ordersDao.CreateOrderAsync(order);
@@ -143,9 +143,9 @@ namespace DataServer
             {
                 OrderDate = DateTime.Now,
                 DeliveryTime = DateTime.Now,
-                OrderItems = new List<OrderItem>(),
+               // OrderItems = new List<OrderItem>(),
                 Price = 100,
-                Status = Status.InProgress
+              //  Status = Status.InProgress
             };
 
             await ordersDao.CreateOrderAsync(order);

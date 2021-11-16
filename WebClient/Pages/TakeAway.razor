@@ -4,6 +4,7 @@
 @inject IMenusPersistence MenusPersistence;
 @inject IMenuItemsService MenuItemsWebService;
 @inject IOrderItemsService OrderItemsService;
+@inject IOrderService OrderService;
 
 <h3>TakeAway</h3>
 
@@ -66,10 +67,10 @@ else
         {
             <tr>
                 <td>@item.Quantity</td>
-                <td>
-                  //  @{GetMenuById(@item.MenuId);}
+               @* <td>
+                  @*  @{GetMenuById(@item.MenuId);}
                 </td>
-                <td>@item.Price</td>
+              @* <td>@item.Price</td>*@
                <td>
                     <button @onclick="@(() => RemoveOrderItem(@item.OrderItemId))">
                         <i class="oi oi-trash" style="color:red"/>
@@ -86,10 +87,9 @@ else
 
 @code {
     private IList<Menu> menus = new List<Menu>();
-    private IList<MenuItem> menuItems = new List<MenuItem>();
     private IList<OrderItem> orderItems = new List<OrderItem>();
-    private Menu menuById = new Menu();
-    int Quantity;
+    private Order cacheOrder = new Order();
+    private int quantity;
 
     protected override async Task OnInitializedAsync()
     {
@@ -99,23 +99,18 @@ else
             m.MenuItems = await MenuItemsWebService.GetMenuItems(m.MenuId);
         }
     }
-
-    void GetMenuById(int menuId)
+    
+    private async Task OnSelectQuantity(dynamic value)
     {
-        menuById = menus.FirstOrDefault(m => m.MenuId.Equals(menuId));
-    }
-
-    void OnSelectQuantity(dynamic value)
-    {
-        Quantity = value;
+        Console.WriteLine($"here--------------------->orderId{cacheOrder.OrderId}");
+        quantity = value;
     }
 
     private async Task OnAddOrderItem(int menuId)
-    {
-        Console.WriteLine($"MenuId selected{menuId}");
-
-        await OrderItemsService.CreateOrderItem(Quantity, menuId);
-        // should we clear the quantity here?
+    {  
+         cacheOrder = await OrderService.CreateOrder();
+         Console.WriteLine($"cacheorderId----------->{cacheOrder.OrderId}");
+      //  await OrderItemsService.CreateOrderItem(quantity, menuId, cacheOrder.OrderId);
     }
 
     private async Task RemoveOrderItem(long orderItem)

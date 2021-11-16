@@ -1,5 +1,6 @@
 package dk.restaurant.models;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,10 +9,10 @@ public class MenuItem
   private int menuItemId;
   private String name;
   private String description;
-  private double price;
+  private BigDecimal price;
   private List<Menu> menus;
 
-  public MenuItem(int menuItemId, String name, String description, double price, List<Menu> menus)
+  public MenuItem(int menuItemId, String name, String description, BigDecimal price, List<Menu> menus)
   {
     this.menuItemId = menuItemId;
     this.name = name;
@@ -62,12 +63,12 @@ public class MenuItem
     this.menus = menus;
   }
 
-  public double getPrice()
+  public BigDecimal getPrice()
   {
     return price;
   }
 
-  public void setPrice(double price)
+  public void setPrice(BigDecimal price)
   {
     this.price = price;
   }

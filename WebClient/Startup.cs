@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Radzen;
 using WebClient.Data;
+using WebClient.Data.Impl;
 
 namespace WebClient
 {
@@ -36,6 +37,7 @@ namespace WebClient
             services.AddSingleton<IMenusPersistence, MenusPersistence>();
             services.AddSingleton<IMenuItemsService, MenuItemsWebService>();
             services.AddScoped<IOrderItemsService, OrderItemsService>();
+            services.AddScoped<IOrderService, OrderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

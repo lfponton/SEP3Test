@@ -1,6 +1,7 @@
 package dk.restaurant.network;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import dk.restaurant.models.Order;
 
@@ -20,12 +21,14 @@ public class OrdersClient
   private PrintWriter out;
   private BufferedReader in;
   private Gson gson;
+  private Gson gsonFrom;
+
 
   public OrdersClient() throws IOException {
     socket = new Socket(HOST, PORT);
     in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
     out = new PrintWriter(socket.getOutputStream(), true);
-    gson = new Gson();
+    gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create();
   }
 
   public synchronized List<Order> getOrders() throws IOException {
@@ -38,9 +41,11 @@ public class OrdersClient
 
   public synchronized Order CreateOrder(Order order) throws IOException {
     out.println("createOrder");
+
     String send = gson.toJson(order);
     out.println(send);
     String response = in.readLine();
-    return gson.fromJson(response, Order.class);
+    System.out.println("hola bug----------->" + response);
+    return gson.fromJson(response,Order.class);
   }
 }

@@ -5,7 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using WebClient.Models;
 
-namespace WebClient.Data
+namespace WebClient.Data.Impl
 {
     public class MenusPersistence : IMenusPersistence
     {

@@ -5,7 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using WebClient.Models;
 
-namespace WebClient.Data
+namespace WebClient.Data.Impl
 {
     public class OrderItemsService : IOrderItemsService
     {
@@ -23,16 +23,16 @@ namespace WebClient.Data
             };
         }
         
-        public async Task CreateOrderItem(int quantity, int menuId)
+        public async Task CreateOrderItem(int quantity, int menuId, long orderId)
         {
             var orderItem = new OrderItem()
             {  
-                OrderId = 1,
+                OrderId = orderId,
                 Quantity = quantity,
                 MenuId = menuId
             };
             
-            string orderItemAsJson = JsonSerializer.Serialize(orderItem);
+            string orderItemAsJson = JsonSerializer.Serialize(orderItem, options);
             HttpContent content = new StringContent(orderItemAsJson, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await client.PostAsync(uri + "/orderItems", content);
             if (!response.IsSuccessStatusCode)

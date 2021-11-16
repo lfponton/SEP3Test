@@ -1,5 +1,5 @@
 ﻿using System;
-using DatabaseServer.Models;
+using DataServer.Models;
 using DataServer.Models;
 using Microsoft.EntityFrameworkCore;
 

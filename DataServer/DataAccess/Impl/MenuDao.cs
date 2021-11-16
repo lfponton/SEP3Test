@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DatabaseServer.Models;
+using DataServer.Models;
 using DataServer.Models;
 using DataServer.Persistence;
 using Microsoft.EntityFrameworkCore;

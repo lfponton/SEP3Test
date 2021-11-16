@@ -28,7 +28,7 @@ public class OrderItemsClient {
     }
 
     public synchronized OrderItem CreateOrderItem(OrderItem orderItem) throws IOException {
-        System.out.println("Specific client");
+        System.out.println("Specific client ----->>"+ orderItem.getOrderId() + orderItem.getMenuId() + orderItem.getQuantity());
         out.println("createOrderItem");
         String send = gson.toJson(orderItem);
         out.println(send);
