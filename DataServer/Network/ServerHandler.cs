@@ -29,8 +29,8 @@ namespace DataServer.Network
             
             options = new JsonSerializerOptions
             {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase, 
-               // ReferenceHandler = ReferenceHandler.Preserve
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                // ReferenceHandler = ReferenceHandler.Preserve
             };
 
             NetworkStream stream = client.GetStream();
