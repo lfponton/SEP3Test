@@ -10,5 +10,7 @@ namespace DataServer.DataAccess
         Task<OrderItem> CreateOrderItemAsync(OrderItem orderItem);
 
         Task<List<OrderItem>> GetOrderItemsAsync(int orderId);
+
+        Task DeleteOrderItemAsync(long orderItemId);
     }
 }

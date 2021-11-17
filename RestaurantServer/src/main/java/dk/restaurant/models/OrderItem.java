@@ -4,7 +4,7 @@ public class OrderItem {
 
     public long orderItemId;
     public long orderId;
-    public int menuId;
+    public long menuId;
     public int quantity;
   //  public double Price;
 //For testing
@@ -16,7 +16,7 @@ public class OrderItem {
         return orderId;
     }
 
-    public int getMenuId() {
+    public long getMenuId() {
         return menuId;
     }
 

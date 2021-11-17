@@ -72,7 +72,7 @@ else
                 </td>
               <td></td>
                <td>
-                    <button @onclick="@(() => RemoveOrderItem(@item.OrderItemId))">
+                    <button @onclick="@(() => DeleteOrderItem(@item.OrderItemId))">
                         <i class="oi oi-trash" style="color:red"/>
                     </button>
                 </td>
@@ -101,7 +101,7 @@ else
         }
     }
     
-    private async Task OnSelectQuantity(dynamic value)
+    private void OnSelectQuantity(dynamic value)
     {
         quantity = value;
     }
@@ -112,8 +112,11 @@ else
          orderItems = await OrderItemsService.GetOrderItems(cacheOrder.OrderId);
     }
 
-    private async Task RemoveOrderItem(long orderItem)
+    private async Task DeleteOrderItem(long orderItemId)
     {
+        await OrderItemsService.DeleteOrderItem(orderItemId);
+        orderItems = await OrderItemsService.GetOrderItems(cacheOrder.OrderId);
+
         
     }
 

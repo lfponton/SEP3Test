@@ -29,5 +29,15 @@ namespace DataServer.DataAccess.Impl
             return await context.OrderItems.Where(o => o.OrderId == orderId).ToListAsync();
 
         }
+
+        public async Task DeleteOrderItemAsync(long orderItemId)
+        {
+            OrderItem toRemove = await context.OrderItems.FirstOrDefaultAsync(o => o.OrderItemId == orderItemId);
+            if (toRemove != null)
+            {
+                context.OrderItems.Remove(toRemove);
+                await context.SaveChangesAsync();
+            }
+        }
     }
 }

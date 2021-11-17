@@ -88,8 +88,14 @@ namespace DataServer.Network
                 case "getOrderItems":
                     await GetOrderItems();
                     break;
+                case "deleteOrderItem":
+                    Console.WriteLine("In the case for delete");
+                    await DeleteOrderItem();
+                    break;
             }
         }
+
+     
 
         private async Task GetMenuItems()
         {
@@ -174,6 +180,14 @@ namespace DataServer.Network
             {
                 Console.WriteLine(e.StackTrace);
             }
+        }
+        
+        private async Task DeleteOrderItem()
+        {
+            Console.WriteLine("DeleteOrderItem in serverHandler");
+            string receivedOrderItemId = await reader.ReadLineAsync();
+            int orderItemId = Int32.Parse(receivedOrderItemId);
+           await daoFactory.OrderItemsDao.DeleteOrderItemAsync(orderItemId);
         }
 
     }

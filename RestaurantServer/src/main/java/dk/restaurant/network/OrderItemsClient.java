@@ -45,7 +45,15 @@ public class OrderItemsClient {
         String send = gson.toJson(orderId);
         out.println(send);
         String response = in.readLine();
-        orderItems= gson.fromJson(response, new TypeToken<ArrayList<OrderItem>>() {}.getType());
+        orderItems = gson.fromJson(response, new TypeToken<ArrayList<OrderItem>>() {}.getType());
         return orderItems;
+    }
+
+    public synchronized void deleteOrderItem(long orderItemId) throws IOException {
+        System.out.println("deleteOrderItem in Specificclient"+orderItemId);
+        List<OrderItem> orderItems;
+        out.println("deleteOrderItem");
+        String send = gson.toJson(orderItemId);
+        out.println(send);
     }
 }

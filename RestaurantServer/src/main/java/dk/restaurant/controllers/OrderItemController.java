@@ -34,5 +34,18 @@ public class OrderItemController
     {
         System.out.println("Controller ->>"+ orderItem.getOrderId() + orderItem.getMenuId() + orderItem.getQuantity());
         return client.createOrderItem(orderItem);
+
+    }
+
+    @DeleteMapping(value = "/orderItems/{id}")
+    public ResponseEntity<Long> deletePost(@PathVariable Long id) {
+        try {
+             client.deleteOrderItem(id);
+            return new ResponseEntity<>(id, HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+
     }
 }

@@ -129,7 +129,7 @@ using WebClient.Data;
         }
     }
     
-    private async Task OnSelectQuantity(dynamic value)
+    private void OnSelectQuantity(dynamic value)
     {
         quantity = value;
     }
@@ -140,9 +140,9 @@ using WebClient.Data;
          orderItems = await OrderItemsService.GetOrderItems(cacheOrder.OrderId);
     }
 
-    private async Task RemoveOrderItem(long orderItem)
+    private async Task DeleteOrderItem(long orderItemId)
     {
-        
+        await OrderItemsService.DeleteOrderItem(orderItemId);
     }
 
     private Menu GetMenuById(int menuId)

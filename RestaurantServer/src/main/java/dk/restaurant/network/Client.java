@@ -87,7 +87,9 @@ public class Client
     return orderItem;
   }
   public List<OrderItem> getOrderItems(long orderId) throws IOException {
-    List<OrderItem> orderItems = new ArrayList<>();
     return orderItemsClient.getOrderItems(orderId);
+  }
+  public void deleteOrderItem(long orderItemId) throws IOException {
+    orderItemsClient.deleteOrderItem(orderItemId);
   }
 }
