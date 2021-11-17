@@ -32,9 +32,7 @@ public class OrderItemController
     @ResponseStatus(HttpStatus.CREATED)
     public OrderItem createOrderItem(@RequestBody OrderItem orderItem)
     {
-        System.out.println("Controller ->>"+ orderItem.getOrderId() + orderItem.getMenuId() + orderItem.getQuantity());
         return client.createOrderItem(orderItem);
-
     }
 
     @DeleteMapping(value = "/orderItems/{id}")

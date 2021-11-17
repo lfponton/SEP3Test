@@ -41,11 +41,9 @@ public class OrdersClient
 
   public synchronized Order CreateOrder(Order order) throws IOException {
     out.println("createOrder");
-
     String send = gson.toJson(order);
     out.println(send);
     String response = in.readLine();
-    System.out.println("hola bug----------->" + response);
     return gson.fromJson(response,Order.class);
   }
 }
