@@ -143,6 +143,9 @@ using WebClient.Data;
     private async Task DeleteOrderItem(long orderItemId)
     {
         await OrderItemsService.DeleteOrderItem(orderItemId);
+        orderItems = await OrderItemsService.GetOrderItems(cacheOrder.OrderId);
+
+        
     }
 
     private Menu GetMenuById(int menuId)

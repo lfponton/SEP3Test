@@ -16,7 +16,6 @@ namespace DataServer.DataAccess.Impl
         }
         public async Task<Order> CreateOrderAsync(Order order)
         {
-           Console.WriteLine($"DAO-------------->{order.DeliveryTime}");
             await context.Orders.AddAsync(order);
             await context.SaveChangesAsync();
             return order;

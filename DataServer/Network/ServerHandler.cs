@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using DataServer.DataAccess;
 using DataServer.Models;
 using DataServer.DataAccess;
 using DataServer.Network;
@@ -31,7 +32,6 @@ namespace DataServer.Network
             options = new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                
                 // ReferenceHandler = ReferenceHandler.Preserve
             };
             options.Converters.Add(new DateTimeConverter());
@@ -50,6 +50,7 @@ namespace DataServer.Network
         public async Task Start()
         {
             clientConnected = true;
+
             do
             {
                 try
@@ -89,7 +90,6 @@ namespace DataServer.Network
                     await GetOrderItems();
                     break;
                 case "deleteOrderItem":
-                    Console.WriteLine("In the case for delete");
                     await DeleteOrderItem();
                     break;
             }
@@ -161,7 +161,6 @@ namespace DataServer.Network
             OrderItem orderItem = JsonSerializer.Deserialize<OrderItem>(requestBody, options);
             await daoFactory.OrderItemsDao.CreateOrderItemAsync(orderItem);
             string orderItemJson = JsonSerializer.Serialize(orderItem, options);
-
             writer.WriteLine(orderItemJson);
         }
 
@@ -184,7 +183,6 @@ namespace DataServer.Network
         
         private async Task DeleteOrderItem()
         {
-            Console.WriteLine("DeleteOrderItem in serverHandler");
             string receivedOrderItemId = await reader.ReadLineAsync();
             int orderItemId = Int32.Parse(receivedOrderItemId);
            await daoFactory.OrderItemsDao.DeleteOrderItemAsync(orderItemId);
